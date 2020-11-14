@@ -1,0 +1,22 @@
+Epoch: 1 | Train Loss : 0.174 | Train Accuracy : 0.700
+Valid Loss : 0.587 | Valid Accuracy : 0.730
+Epoch: 2 | Train Loss : 0.120 | Train Accuracy : 0.738
+Valid Loss : 0.576 | Valid Accuracy : 0.737
+Epoch: 3 | Train Loss : 0.118 | Train Accuracy : 0.738
+Valid Loss : 0.582 | Valid Accuracy : 0.737
+Epoch: 4 | Train Loss : 0.117 | Train Accuracy : 0.738
+Valid Loss : 0.601 | Valid Accuracy : 0.737
+Epoch: 5 | Train Loss : 0.117 | Train Accuracy : 0.738
+Valid Loss : 0.577 | Valid Accuracy : 0.737
+Epoch: 6 | Train Loss : 0.121 | Train Accuracy : 0.735
+Valid Loss : 0.576 | Valid Accuracy : 0.737
+Epoch: 7 | Train Loss : 0.117 | Train Accuracy : 0.734
+Valid Loss : 0.601 | Valid Accuracy : 0.737
+Epoch: 8 | Train Loss : 0.117 | Train Accuracy : 0.734
+Valid Loss : 0.581 | Valid Accuracy : 0.737
+Epoch: 9 | Train Loss : 0.116 | Train Accuracy : 0.738
+Valid Loss : 0.571 | Valid Accuracy : 0.737
+Epoch: 10 | Train Loss : 0.117 | Train Accuracy : 0.733
+Valid Loss : 0.571 | Valid Accuracy : 0.737
+Epoch: 11 | Train Loss : 0.117 | Train Accuracy : 0.736
+Valid Loss : 0.588 | Valid Accuracy : 0.737
