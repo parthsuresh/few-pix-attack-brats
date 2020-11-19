@@ -42,7 +42,7 @@ def orig(best_solution, img_real, label, model, target_label=None):
     )
     if target_label is not None:
         print(
-            "Target Label Probability:",
+            "\nTarget Label Probability:",
             F.softmax(model(img).squeeze(), dim=0)[target_label].item(),
         )
     return true_label, prediction, label_probs, true_label_prob, mod_true_label_prob
@@ -74,7 +74,7 @@ def evolve(candidates, F=0.5, strategy="clip"):
 
 
 def attack(
-    model, img, true_label, target_label=None, iters=100, pop_size=400, verbose=True
+    model, img, true_label, target_label=None, iters=100, pop_size=10, verbose=True
 ):
     # Targeted: maximize target_label if given (early stop > 50%)
     # Untargeted: minimize true_label otherwise (early stop < 5%)
@@ -86,7 +86,7 @@ def attack(
 
     def is_success():
         return (is_targeted and fitness.max() > 0.5) or (
-            (not is_targeted) and fitness.min() < 0.05
+            (not is_targeted) and fitness.min() < 0.5
         )
 
     for iteration in range(iters):
@@ -139,8 +139,16 @@ if __name__ == "__main__":
     bn_model = BN_Model()
     bn_model.load_state_dict(torch.load("bn_models/model_epoch_3.pth"))
     bn_model.eval()
-
+    
     with torch.no_grad():
         for i, data in tqdm(enumerate(test_dataloader)):
             x, label = data["X"], data["y"]
+            preds = bn_model(x)
+            _, pred_labels = preds.max(1, keepdim=True)
+            accuracy = (
+                pred_labels.eq(label.view_as(pred_labels)).sum().item() / label.shape[0]
+            )
+            if accuracy != 1:
+                print("\nIncorrectly classified")
+                continue
             attack(bn_model, x, label)
