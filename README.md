@@ -8,4 +8,8 @@
 - Determine the effectiveness of limited pixel attacks on brain MRI classification tasks.
 - Parallelise differential evolution to make the experiment less computationally taxing.
 
+## Differential Evolution
+<img width=300 src="./images/de.png">
 
+## Results
+In progress
