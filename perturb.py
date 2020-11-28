@@ -8,8 +8,11 @@ from tqdm import tqdm
 from data import MRIDataset
 from model import BN_Model
 
-labels = ["HGG", "LGG"]
+import json
 
+labels = ["HGG", "LGG"]
+RESULTS_LOG = 'results.json'
+results = {'data':[]}
 
 def perturb(p_list, img):
     img_size_x, img_size_y, img_size_z = img.shape[2], img.shape[3], img.shape[4]
@@ -115,6 +118,19 @@ def attack(
     true_label, prediction, label_probs, true_label_prob, mod_true_label_prob = orig(
         best_solution, img, true_label, model
     )
+    
+    results['data'].append({
+        'is_success': is_success(),
+        'best_solution': best_solution,
+        'best_score': best_score,
+        'true_label': true_label,
+        'prediction': prediction,
+        'label_probs': label_probs,
+        'true_label_prob': true_label_prob,
+        'mod_true_label_prob': mod_true_label_prob
+    })
+    
+    
     return (
         is_success(),
         best_solution,
@@ -128,6 +144,7 @@ def attack(
 
 
 if __name__ == "__main__":
+    
     test_dataset = MRIDataset(csv_file="test.csv")
     test_dataloader = DataLoader(test_dataset, batch_size=1, shuffle=False)
     use_cuda = True
@@ -152,3 +169,7 @@ if __name__ == "__main__":
                 print("\nIncorrectly classified")
                 continue
             attack(bn_model, x, label)
+    
+    with open(RESULTS_LOG, 'w') as outfile:
+        json.dump(results, outfile)
+
