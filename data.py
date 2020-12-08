@@ -88,7 +88,8 @@ class MRIDataset(Dataset):
         scan = np.float32(nib.load(path).get_fdata())
         scan = scan[np.newaxis, :, :, :]
         scan = (scan - scan.min()) / (scan.max() - scan.min())
-        payload = {"X": scan, "y": label}
+        img_name = os.path.basename(path).split('.')[0]
+        payload = {"X": scan, "y": label, "img_name": img_name}
         return payload
 
 

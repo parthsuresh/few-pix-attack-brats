@@ -9,10 +9,12 @@ from data import MRIDataset
 from model import BN_Model
 
 import json
+import os
 
 labels = ["HGG", "LGG"]
-RESULTS_LOG = 'results.json'
-results = {'data':[]}
+
+# N_PIXELS = 0.01 * (240 * 240 * 155)
+NUM_PIXELS = 5
 
 def perturb(p_list, img):
     img_size_x, img_size_y, img_size_z = img.shape[2], img.shape[3], img.shape[4]
@@ -71,18 +73,19 @@ def evolve(candidates, F=0.5, strategy="clip"):
             gen2[i] = np.clip(x_next, 0, 1)
         elif strategy == "resample":
             x_oob = np.logical_or((x_next < 0), (1 < x_next))
-            x_next[x_oob] = np.random.random((5, 4))[x_oob]
+            x_next[x_oob] = np.random.random((NUM_PIXELS, 4))[x_oob]
             gen2[i] = x_next
     return gen2
 
 
 def attack(
-    model, img, true_label, target_label=None, iters=100, pop_size=10, verbose=True
+    model, img_name, img, true_label, target_label=None, iters=100, pop_size=100, verbose=True
 ):
+    print(f"Starting attack on {img_name}")
     # Targeted: maximize target_label if given (early stop > 50%)
     # Untargeted: minimize true_label otherwise (early stop < 5%)
-    candidates = np.random.random((pop_size, 5, 4))
-    candidates[:, :, 3] = np.clip(np.random.normal(0.5, 0.5, (pop_size, 5)), 0, 1)
+    candidates = np.random.random((pop_size, NUM_PIXELS, 4))
+    candidates[:, :, 3] = np.clip(np.random.normal(0.5, 0.5, (pop_size, NUM_PIXELS)), 0, 1)
     is_targeted = target_label is not None
     label = target_label if is_targeted else true_label
     fitness = evaluate(candidates, img, label, model)
@@ -119,18 +122,6 @@ def attack(
         best_solution, img, true_label, model
     )
     
-    results['data'].append({
-        'is_success': is_success(),
-        'best_solution': best_solution,
-        'best_score': best_score,
-        'true_label': true_label,
-        'prediction': prediction,
-        'label_probs': label_probs,
-        'true_label_prob': true_label_prob,
-        'mod_true_label_prob': mod_true_label_prob
-    })
-    
-    
     return (
         is_success(),
         best_solution,
@@ -158,8 +149,8 @@ if __name__ == "__main__":
     bn_model.eval()
     
     with torch.no_grad():
-        for i, data in tqdm(enumerate(test_dataloader)):
-            x, label = data["X"], data["y"]
+        for i, data in enumerate(test_dataloader):
+            x, label, img_name = data["X"], data["y"], data["img_name"]
             preds = bn_model(x)
             _, pred_labels = preds.max(1, keepdim=True)
             accuracy = (
@@ -168,8 +159,4 @@ if __name__ == "__main__":
             if accuracy != 1:
                 print("\nIncorrectly classified")
                 continue
-            attack(bn_model, x, label)
-    
-    with open(RESULTS_LOG, 'w') as outfile:
-        json.dump(results, outfile)
-
+            attack(bn_model, img_name, x, label)
