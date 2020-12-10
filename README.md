@@ -49,16 +49,19 @@ Parallelizing the code using the first approach mentioned above gives the follow
 - 2 processes : 4410.82 s
 - 1 process : 8701.48s (same as serial execution)
 
+<img width=500 src="./images/speedup-v1.jpg">
+
 Parallelizing the code using the second approach mentioned above gives the following runtimes : 
 - 4 processes , 4 threads per process : 615.95 s
 - 4 processes , 2 threads per process : 1119.87 s
 - 4 processes - 1 thread per process : 2112.37 s
 
+<img width=500 src="./images/speedup-thread.jpg">
 
 ## Conclusions
 
 - Preliminary tests show that our model is safe towards limited pixel attacks.
-- By parallelizing the code, we reduce the processing time from 8701 s to 516 s, i.e. to nearly 1/16th of its original value.
+- By parallelizing the code, we reduce the processing time from 8701 s to 616 s, i.e. to nearly 1/16th of its original value.
 
 ## Future Work
 
