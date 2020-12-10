@@ -1,10 +1,6 @@
 
 # Limited Pixel Attack on Brain Tumor Classification Models
 
-<img width=500 src="./images/tumor-examples.jpg">
-
-Examples of Brain Tumors across different Imaging Modalities
-
 ## Goal
 - The classification of brain tumors is performed by biopsy, which is not usually conducted before definitive brain surgery. We develop a non-invasive method to classify brain tumors using neural network models with the patient's MRI scan as the input.
 - Determine the susuceptibility of our brain tumor classification model towards limited pixel attacks in order to prevent adversaries with malicious intent from taking advantage of it.
@@ -25,7 +21,7 @@ An example of limited pixel attacks i.e. the one-pixel attack where only one pix
 <img width=500 src="./images/one-pix.jpg">
 
 
-In this project, we create a neural network model to classify different types of brain tumors. The BraTS 2018 dataset is used, which has two types of brain tumors, High Grade Glioblastoma(HGG) and Low Grade Glioblastoma(LGG). We then check if our model is susceptible to limited pixel attacks by changing 0.1% of the total number of pixels. In order to speed things up, we parallelize the limited pixel attack.
+In this project, we create a neural network model to classify different types of brain tumors. The BraTS 2018 dataset is used, which has two types of brain tumors, High Grade Glioblastoma(HGG) and Low Grade Glioblastoma(LGG). We then check if our model is susceptible to limited pixel attacks by modifying the value of 0.1% of the total number of pixels. In order to speed things up, we parallelize the limited pixel attack.
 
 ## Previous Work
 The paper "One pixel attack for fooling deep neural networks" by J.Su et.al introduces the concept of limited pixel attacks. They take limited pixel attacks to the extreme, by only allowing a single pixel to be perturbed. The authors show that by only changing a single pixel, they are able to trick their neural network model to misclassify 67.97% of images in CIFAR-10 dataset and 16.04% of images in the Imagenet dataset. In this project, we use the same approach as J.Su et.al. but since our images are orders of magnitude larger than theirs (their images were 32x32, ours are 240x240x155) we need to introduce some form of parallelization to speed things up.
@@ -59,7 +55,7 @@ The attack is unsuccesful for all 8 images in our test set (10 candidates and 10
 Parallelizing the code using the first approach mentioned above gives the following runtimes : 
 - 4 processes : 2225.41 s
 - 2 processes : 4410.82 s
-- 1 process : 8701.48s (same as serial execution)
+- 1 process : 8701.48 s (same as serial execution)
 
 <img width=500 src="./images/speedup-v1.jpg">
 
@@ -87,5 +83,8 @@ Parallelizing the code using the second approach mentioned above gives the follo
 - S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, J.S. Kirby, et al., "Advancing The Cancer Genome Atlas glioma MRI collections with expert segmentation labels and radiomic features", Nature Scientific Data, 4:170117 (2017) DOI: 10.1038/sdata.2017.117
 - S. Bakas, M. Reyes, A. Jakab, S. Bauer, M. Rempfler, A. Crimi, et al., "Identifying the Best Machine Learning Algorithms for Brain Tumor Segmentation, Progression Assessment, and Overall Survival Prediction in the BRATS Challenge", arXiv preprint arXiv:1811.02629 (2018)
 
-## This work is part of the course CSCI 596 at the University of Southern California
-by Parth Suresh, Rushabh Kapadia
+### This work is done as part of the course CSCI 596 at the University of Southern California taught by Prof. Aiichiro Nakano
+
+### People involved :
+- Parth Suresh : parthsur@usc.edu
+- Rushabh Kapadia : rpkapadi@usc.edu
