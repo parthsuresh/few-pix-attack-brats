@@ -4,9 +4,15 @@
 - Semi-black box attack : requires only the probability labels.
 - Differential Evolution is used to compute the locations and values of the pixels to be perturbed.
 
+## Goal
+- Determine the susuceptibility of our brain tumor classification model towards limited pixel attacks in order to prevent adversaries with malicious intent from taking advantage of it.
+- Limited pixel attacks involve a state space search which is computationally very taxing for high dimensionsal images.
+- Parallelize the existing limited pixel attack algorithm in order to reduce the long runtime and make it easier for researchers to test against this attack when developing a model.
+
 ## Objectives
-- Determine the effectiveness of limited pixel attacks on brain MRI classification tasks.
-- Parallelise differential evolution to make the experiment less computationally taxing.
+- Train a brain tumor classification model using convolutional neural networks.
+- Determine the effectiveness of limited pixel attacks on the trained model.
+- In order to do this, parallelize the limited pixel attack to make the experiment less computationally taxing.
 
 ## Introduction
 Neural networks have shown remarkable performance in computer vision tasks like image classification, segmentation and object detection. The use of neural networks in the field of healthcare has been increasing, with neural networks even beating human performance for tasks like chest X-ray analysis. However, the focus of these models is mostly on their performance aspect, and not their reliability. An attacker with malicious intentions can make use of the vulnerabilities of a machine learning model to cause serious harm to a patient's health. For instance, they could attack a model to misclassify one disease as another disease, or not detect a disease at all.
@@ -52,9 +58,9 @@ Parallelizing the code using the first approach mentioned above gives the follow
 <img width=500 src="./images/speedup-v1.jpg">
 
 Parallelizing the code using the second approach mentioned above gives the following runtimes : 
-- 4 processes , 4 threads per process : 615.95 s
-- 4 processes , 2 threads per process : 1119.87 s
-- 4 processes - 1 thread per process : 2112.37 s
+- 4 processes , 4 threads per process (16 processors in total) : 615.95 s
+- 4 processes , 2 threads per process (8 processors in total) : 1119.87 s
+- 4 processes - 1 thread per process (4 processors in total): 2112.37 s
 
 <img width=500 src="./images/speedup-thread.jpg">
 
