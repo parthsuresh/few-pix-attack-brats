@@ -1,5 +1,9 @@
 
-# Limited Pixel Attack BraTS
+# Limited Pixel Attack on Brain Tumor Classification Models
+
+<img width=500 src="./images/tumor-examples.jpg">
+
+Examples of Brain Tumors across different Imaging Modalities
 
 ## Goal
 - The classification of brain tumors is performed by biopsy, which is not usually conducted before definitive brain surgery. We develop a non-invasive method to classify brain tumors using neural network models with the patient's MRI scan as the input.
@@ -83,5 +87,5 @@ Parallelizing the code using the second approach mentioned above gives the follo
 - S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, J.S. Kirby, et al., "Advancing The Cancer Genome Atlas glioma MRI collections with expert segmentation labels and radiomic features", Nature Scientific Data, 4:170117 (2017) DOI: 10.1038/sdata.2017.117
 - S. Bakas, M. Reyes, A. Jakab, S. Bauer, M. Rempfler, A. Crimi, et al., "Identifying the Best Machine Learning Algorithms for Brain Tumor Segmentation, Progression Assessment, and Overall Survival Prediction in the BRATS Challenge", arXiv preprint arXiv:1811.02629 (2018)
 
-## Included as a submission to the course CSCI 596
+## This work is part of the course CSCI 596 at the University of Southern California
 by Parth Suresh, Rushabh Kapadia
