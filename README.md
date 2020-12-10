@@ -45,13 +45,13 @@ We implement two ways to parallelize the code:
 The attack is unsuccesful for all 8 images in our test set (10 candidates and 10 iterations), implying that our model is safe and resistant towards limited pixel attacks.
 
 Parallelizing the code using the first approach mentioned above gives the following runtimes : 
-- 4 processes : 2125.37 s
-- 2 processes : 4310.76 s
+- 4 processes : 2225.41 s
+- 2 processes : 4410.82 s
 - 1 process : 8701.48s (same as serial execution)
 
 Parallelizing the code using the second approach mentioned above gives the following runtimes : 
-- 4 processes , 4 threads per process : 515.928 s
-- 4 processes , 2 threads per process : 1019.91 s
+- 4 processes , 4 threads per process : 615.95 s
+- 4 processes , 2 threads per process : 1119.87 s
 - 4 processes - 1 thread per process : 2112.37 s
 
 
