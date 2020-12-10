@@ -1,13 +1,10 @@
 
 # Limited Pixel Attack BraTS
-- An extremely limited scenario where the attacker can only perturb a certain number of pixels in the image.
-- Semi-black box attack : requires only the probability labels.
-- Differential Evolution is used to compute the locations and values of the pixels to be perturbed.
 
 ## Goal
+- The classification of brain tumors is performed by biopsy, which is not usually conducted before definitive brain surgery. We develop a non-invasive method to classify brain tumors using neural network models with the patient's MRI scan as the input.
 - Determine the susuceptibility of our brain tumor classification model towards limited pixel attacks in order to prevent adversaries with malicious intent from taking advantage of it.
-- Limited pixel attacks involve a state space search which is computationally very taxing for high dimensionsal images.
-- Parallelize the existing limited pixel attack algorithm in order to reduce the long runtime and make it easier for researchers to test against this attack when developing a model.
+- Limited pixel attacks involve a state space search which is computationally very taxing for high dimensionsal images. Therefore, parallelize the existing limited pixel attack algorithm in order to reduce the long runtime and make it easier for researchers to test against this attack when developing a model.
 
 ## Objectives
 - Train a brain tumor classification model using convolutional neural networks.
@@ -24,7 +21,12 @@ An example of limited pixel attacks i.e. the one-pixel attack where only one pix
 <img width=500 src="./images/one-pix.jpg">
 
 
-In this project, we create a neural network model to classify different types of brain tumors. The BraTS 2018 dataset is used, which has two types of brain tumors, High Grade Glioblastoma(HGG) and Low Grade Glioblastoma(LGG). We then check if our model is susceptible to limited pixel attacks. In order to speed things up, we parallelize the limited pixel attack.
+In this project, we create a neural network model to classify different types of brain tumors. The BraTS 2018 dataset is used, which has two types of brain tumors, High Grade Glioblastoma(HGG) and Low Grade Glioblastoma(LGG). We then check if our model is susceptible to limited pixel attacks by changing 0.1% of the total number of pixels. In order to speed things up, we parallelize the limited pixel attack.
+
+## Previous Work
+The paper "One pixel attack for fooling deep neural networks" by J.Su et.al introduces the concept of limited pixel attacks. They take limited pixel attacks to the extreme, by only allowing a single pixel to be perturbed. The authors show that by only changing a single pixel, they are able to trick their neural network model to misclassify 67.97% of images in CIFAR-10 dataset and 16.04% of images in the Imagenet dataset. In this project, we use the same approach as J.Su et.al. but since our images are orders of magnitude larger than theirs (their images were 32x32, ours are 240x240x155) we need to introduce some form of parallelization to speed things up.
+
+M.M. Badza et.al use a VGG-like convolutional neural network to classify different types of brain tumors in their paper "Classification of Brain Tumors from MRI Images Using a Convolutional Neural Network".We follow a similar approach, but introduce batch-norm layers as we observed that it improved the accuracy of the model and made it more resistant to adversarial attacks.
 
 
 ## Model
@@ -66,16 +68,20 @@ Parallelizing the code using the second approach mentioned above gives the follo
 
 ## Conclusions
 
-- Preliminary tests show that our model is safe towards limited pixel attacks.
+- These preliminary tests show that our model is safe towards limited pixel attacks.
 - By parallelizing the code, we reduce the processing time from 8701 s to 616 s, i.e. to nearly 1/16th of its original value.
 
 ## Future Work
 
 - Increasing the number of candidates and number of iterations will make the testing more rigorous and ensure reduce any further uncertainity about the safety of the model.
+- Approaches to parallelize the algorithm further may be explored.
 
 ## References
 - Jiawei Su, Danilo Vasconcellos Vargas, Sakurai Kouichi. "One pixel attack for fooling deep neural networks"
+- Badža, Milica M., and Marko Č. Barjaktarović. "Classification of Brain Tumors from MRI Images Using a Convolutional Neural Network." Applied Sciences 10.6 (2020): 1999.
 - B. H. Menze, A. Jakab, S. Bauer, J. Kalpathy-Cramer, K. Farahani, J. Kirby, et al. "The Multimodal Brain Tumor Image Segmentation Benchmark (BRATS)", IEEE Transactions on Medical Imaging 34(10), 1993-2024 (2015) DOI: 10.1109/TMI.2014.2377694
 - S. Bakas, H. Akbari, A. Sotiras, M. Bilello, M. Rozycki, J.S. Kirby, et al., "Advancing The Cancer Genome Atlas glioma MRI collections with expert segmentation labels and radiomic features", Nature Scientific Data, 4:170117 (2017) DOI: 10.1038/sdata.2017.117
 - S. Bakas, M. Reyes, A. Jakab, S. Bauer, M. Rempfler, A. Crimi, et al., "Identifying the Best Machine Learning Algorithms for Brain Tumor Segmentation, Progression Assessment, and Overall Survival Prediction in the BRATS Challenge", arXiv preprint arXiv:1811.02629 (2018)
 
+## Included as a submission to the course CSCI 596
+by Parth Suresh, Rushabh Kapadia
