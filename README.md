@@ -1,6 +1,9 @@
 
 # Limited Pixel Attack on Brain Tumor Classification Models
 
+<img width=800 src="./images/mri_primary.jpg">
+
+
 ## Goal
 - The classification of brain tumors is performed by biopsy, which is not usually conducted before definitive brain surgery. We develop a non-invasive method to classify brain tumors using neural network models with the patient's MRI scan as the input.
 - Determine the susuceptibility of our brain tumor classification model towards limited pixel attacks in order to prevent adversaries with malicious intent from taking advantage of it.
